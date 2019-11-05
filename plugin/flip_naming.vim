@@ -18,6 +18,7 @@ function s:flipNaming()
     let currline = getline(line_start)
     let selectedTxt = currline[column_start  - 1: column_end - 1]
     let val = selectedTxt[:]
+    echo 'val:' val 'END'
     if val =~ "_"
         let mode = 1
     elseif val =~ '\<\([A-Z][a-z_][A-Za-z_]\+\)\>'
@@ -32,7 +33,7 @@ function s:flipNaming()
     if column_start == 1
         let newline = newone . currline[column_end + 1 : ]
     else 
-        let newline = currline[0: column_start - 2] . newone . currline[column_end + 1 : ]
+        let newline = currline[0: column_start - 2] . newone . currline[column_end : ]
     endif
 
     call setline(line_start, newline)
@@ -81,5 +82,4 @@ function! Gflip()
 endfunction
 
 vnoremap D :call flip_naming#FlipNaming() <enter>
-
 
