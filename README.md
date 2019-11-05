@@ -2,7 +2,7 @@
 flip-naming.vim is for flipping naming convention
 
 ## Installation
-### Using [Pathogen][https://github.com/tpope/vim-pathogen]
+### Using [Pathogen][]
 
 1. `cd ~/.vim/bundle`
 2. `git clone https://github.com/donglaizhang/flip-naming.git`
@@ -13,3 +13,9 @@ flip-naming.vim is for flipping naming convention
 
 ## Using 
 in visual mode, select the variable, then press `D`.  
+
+
+
+
+[Pathogen]: https://github.com/tpope/vim-pathogen
+
