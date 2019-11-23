@@ -29,6 +29,9 @@ function s:flipNaming()
     elseif mode == 0
         let newone = s:getNextForMode0(val)
     end
+    if (mode != 1) && (mode != 0) :
+        return
+    end
     if column_start == 1
         let newline = newone . currline[column_end + 1 : ]
     else 
