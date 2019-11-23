@@ -18,9 +18,11 @@ function s:flipNaming()
     let currline = getline(line_start)
     let selectedTxt = currline[column_start  - 1: column_end - 1]
     let val = selectedTxt[:]
-    echo 'val:' val 'END'
+    "echo 'val:' val 'END'
     if val =~ "_"
         let mode = 1
+    elseif val =~ "-"
+        let mode = 2
     elseif val =~ '\<\([A-Z][a-z_][A-Za-z_]\+\)\>'
         let mode = 0
     endif
@@ -30,6 +32,10 @@ function s:flipNaming()
     elseif mode == 0
         let newone = s:getNextForMode0(val)
     end
+    echo 'mode:' mode
+    if (mode != 1) && (mode != 0)
+        return
+    endif
     if column_start == 1
         let newline = newone . currline[column_end + 1 : ]
     else 
@@ -55,19 +61,24 @@ function s:getNextForMode0(val)
     let str = a:val
     let i = 0
     let wlist = []
+    if toupper(str) ==# str
+        return str
+    elseif tolower(str) ==# str
+        return str
+    endif
     while i < len(str)
-	let c = str[i]
-	if toupper(c) ==# c
-		"let index = len(wlist) - 1
-		call add(wlist, c)
-	else
-		if len(wlist) == 0
-			call add(wlist, c)
-		else 
-			let wlist[len(wlist) - 1] =  wlist[len(wlist) - 1] . toupper(c)
-		endif
-	endif
-        let i += 1
+	  let c = str[i]
+	  if toupper(c) ==# c
+	  	"let index = len(wlist) - 1
+	  	call add(wlist, c)
+	  else
+	  	if len(wlist) == 0
+	  		call add(wlist, c)
+	  	else 
+	  		let wlist[len(wlist) - 1] =  wlist[len(wlist) - 1] . toupper(c)
+	  	endif
+	  endif
+          let i += 1
     endwhile
     let nstr = join(wlist, '_')
     return nstr
